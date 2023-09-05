@@ -9,6 +9,7 @@ const server = http.createServer( (req, res) => {
     res.write('<html>');
     res.write('<body>')
     res.write('Hello Node.js!');
+    res.write('<div style = "height:30rem; width:30rem; background-color : blue; text-alignment:center; font:10px; ">go </div>')
     res.write('</body>')
     res.write('</html>')
 

@@ -1,0 +1,20 @@
+{
+  "name": "app2",
+  "version": "1.0.0",
+  "description": "learning to create second app",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kumar-Shashwat/Backend_Development_Node"
+  },
+  "author": "Shashwat",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
+}

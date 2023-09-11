@@ -1,6 +1,7 @@
 // const http = require('http');
 const express = require('express');
 const bodyParsher = require('body-parser');
+const path = require('path');
 
 // const own_fun = (req, res) => {
 
@@ -19,6 +20,7 @@ const bodyParsher = require('body-parser');
 // const server = http.createServer(own_fun);
 
 
+
 const app = express();
 
 const routerAdmin = require('./routes/admin.js');
@@ -27,6 +29,7 @@ const routerError = require('./routes/error.js');
 
 
 app.use(bodyParsher.urlencoded());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin', routerAdmin);
 app.use(routerShop);

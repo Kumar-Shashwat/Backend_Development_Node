@@ -11,9 +11,8 @@ router.get('/add-phone', (req,res,next) => {
 router.post('/all',(req, res , next) => {             // limiting  middleware for only post post request.
     console.log("New phone is added sucessfully!");
     console.log(req.body);
-    res.write("<p>New phone is added sucessfully!</p>");
-    res.write('<h1> all mobile phones are here for you.</h1>'); 
-    res.end();
+    
+    res.sendFile(path.join(__dirname, '../', 'view', 'added.html'));
 
 })
 

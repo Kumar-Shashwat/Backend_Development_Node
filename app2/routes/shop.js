@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
+const adminDAta = require('./admin');
 
 
 router.get( '/phone',(req, res , next) => {
@@ -13,8 +14,9 @@ router.get( '/phone',(req, res , next) => {
 
 router.get('/',(req, res , next) => {
     // console.log("In the last middleware!");
-    res.sendFile(path.join(__dirname, '../', 'view', 'shop.html'));
-
+    // res.sendFile(path.join(__dirname, '../', 'view', 'shop.html'));
+    res.render('shop', {prod : adminDAta.products, title : 'shop', path : '/'});
+    console.log(adminDAta.products);
 });
 
 module.exports = router;

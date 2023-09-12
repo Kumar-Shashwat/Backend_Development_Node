@@ -23,20 +23,20 @@ const path = require('path');
 
 const app = express();
 
-const routerAdmin = require('./routes/admin.js');
+app.set('view engine', 'pug');
+app.set('views', 'view');
+
+const routerAdminData = require('./routes/admin.js');
 const routerShop = require('./routes/shop.js');
 const routerError = require('./routes/error.js');
 
 
-app.use(bodyParsher.urlencoded());
+app.use(bodyParsher.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin', routerAdmin);
+app.use('/admin', routerAdminData.router);
 app.use(routerShop);
 app.use(routerError);
-
-
-
 
 // const server = http.createServer(app);
 

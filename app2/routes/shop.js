@@ -4,6 +4,6 @@ const path = require('path');
 
 const { shopGallery } = require('../controller/shop');
 
-router.get('/shop',shopGallery);
+router.get('/product-list', shopGallery);
 
 module.exports = router;

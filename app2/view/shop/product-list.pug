@@ -8,9 +8,12 @@ block content
             if prod.length > 0
                 each products in prod
                     div.book-container
+                        h1#book-title 
+                            u #{products.title}
                         img#book-cover( src= products.imageUrl, alt="Book Cover")
-                        h1#book-title #{products.title}
-                        p#book-author By:- Kumar Shashwat
+                        h1#book-price 
+                            em ₹ #{products.price}
+                        p#book-author By:- #{products.author}
                         p#book-summary #{products.description}
                         button#read-button Read Now
             else 

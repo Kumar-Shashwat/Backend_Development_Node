@@ -1,4 +1,4 @@
-extend ../layout/main-layout.pug
+extend ../layout/shop-layout.pug
 
 block style 
     link(rel="stylesheet", href="/style/shop.css")
@@ -8,10 +8,10 @@ block content
             if prod.length > 0
                 each products in prod
                     div.book-container
-                        img#book-cover( src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4rEPSSMyw_FKZ9QuiluAoblgMJ43EyQ1qtWLkbLg9nQSU98D6-zNsdEkrcxhb5zN_R1o&usqp=CAU", alt="Book Cover")
+                        img#book-cover( src= products.imageUrl, alt="Book Cover")
                         h1#book-title #{products.title}
                         p#book-author By:- Kumar Shashwat
-                        p#book-summary A excellent book to understand the world.
+                        p#book-summary #{products.description}
                         button#read-button Read Now
             else 
                 h1 No Products.

@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{title}
+        link(rel="stylesheet", href="/style/main.css")
+
+        block style
+    body 
+
+        header.main-header
+            nav.main-header__nav
+                ul.main-header__item-list
+                    li.main-header__item
+                        a(href="/product-list" class = (path === 'shop/product-list' ? 'active' : '')) product-list
+                    
+                    li.main-header__item
+                        a(href="/admin/add-product" class = (path === 'admin/add-product'? 'active' : '')) Add product 
+                    
+                    li.main-header__item
+                        a(href="/admin/edit-product" class = (path === 'admin/edit-product'? 'active' : '')) edit-product  
+            
+
+        block content

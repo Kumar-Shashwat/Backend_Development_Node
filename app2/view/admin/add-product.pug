@@ -1,0 +1,13 @@
+extend ../layout/main-layout.pug
+
+block style 
+    link(rel="stylesheet", href="/style/add-product.css")
+
+block content 
+     main
+            form.product-form( action="/admin/add-product" method="POST")
+                div.form-control
+                    label( for="title") Enter Title
+                    input#title(type="text" name="title" )
+
+                button(type="submit") Add Product

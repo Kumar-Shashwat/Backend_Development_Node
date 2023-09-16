@@ -14,7 +14,18 @@ html(lang="en")
                 ul.main-header__item-list
                     li.main-header__item
                         a(href="/product-list" class = (path === '/shop/product-list' ? 'active' : '')) product-list
+                    
                     li.main-header__item
                         a(href="/admin/add-product" class = (path === 'admin/add-product'? 'active' : '')) Add product 
+                    
+                    li.main-header__item
+                        a(href="/admin/add-product" class = (path === 'admin/add-product'? 'active' : '')) Cart  
+                    
+                    li.main-header__item
+                        a(href="/admin/add-product" class = (path === 'admin/add-product'? 'active' : '')) cheakout  
+                    
+                    li.main-header__item
+                        a(href="/admin/add-product" class = (path === 'admin/add-product'? 'active' : '')) product-details  
+            
 
         block content

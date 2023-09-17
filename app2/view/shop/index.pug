@@ -1,1 +1,25 @@
 extend ../layout/shop-layout.pug
+
+block style 
+    link(rel="stylesheet", href="/style/shop.css")
+
+block content 
+    div.book-gallery
+            if prod.length > 0
+                each products in prod
+                    div.book-container
+                        h1#book-title 
+                            u #{products.title}
+                        img#book-cover( src= products.imageUrl, alt="Book Cover")
+                        h1#book-price 
+                            em ₹ #{products.price}
+                        p#book-author By:- #{products.author}
+                        p#book-summary #{products.description}
+                        
+                        div#book-action-buttons
+                            a(href = "/product-details/"+ products.id )
+                                button#product-detials Detials
+                            button#read-button Read Now
+                        
+            else 
+                h1 No Products.

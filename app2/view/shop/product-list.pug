@@ -15,6 +15,11 @@ block content
                             em ₹ #{products.price}
                         p#book-author By:- #{products.author}
                         p#book-summary #{products.description}
-                        button#read-button Read Now
+                        
+                        div#book-action-buttons
+                            a(href = "/product-details/"+ products.id )
+                                button#product-detials Detials
+                            button#read-button Read Now
+                        
             else 
                 h1 No Products.

@@ -9,12 +9,14 @@
 }
 
 .form-control label,
-.form-control input {
+.form-control input,
+.form-control textarea {
     display: block;
     width: 100%;
 }
 
-.form-control input {
+.form-control input,
+.form-control textarea {
     border: 1px solid #dbc441;
     font: inherit;
     border-radius: 2px;
@@ -27,10 +29,16 @@ button {
     background: white;
     border-radius: 3px;
     cursor: pointer;
+    margin: 1rem;
+    padding : 10px 20px;
+    font-size: 1rem;
 }
+
+
 
 button:hover,
 button:active {
     background-color: #3e00a1;
     color: white;
+    font-size: 1rem;
 }

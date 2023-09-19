@@ -18,5 +18,8 @@ block content
             div#book-action-buttons
                 //- a(href = "/product-details/"+ product.id )
                 //-     button#product-detials Detials
-                button#read-button Add to cart
+                form#form-cont(action= '/cart', method = 'post')
+                    button#read-button(type = "submit") Add to cart
+                    input(type="hidden", name = 'prodId', value = product.id)
+
                         

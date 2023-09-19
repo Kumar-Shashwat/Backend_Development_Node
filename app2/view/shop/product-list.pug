@@ -6,20 +6,22 @@ block style
 block content 
     div.book-gallery
             if prod.length > 0
-                each products in prod
+                each product in prod
                     div.book-container
                         h1#book-title 
-                            u #{products.title}
-                        img#book-cover( src= products.imageUrl, alt="Book Cover")
+                            u #{product.title}
+                        img#book-cover( src= product.imageUrl, alt="Book Cover")
                         h1#book-price 
-                            em ₹ #{products.price}
-                        p#book-author By:- #{products.author}
-                        p#book-summary #{products.description}
+                            em ₹ #{product.price}
+                        p#book-author By:- #{product.author}
+                        p#book-summary #{product.description}
                         
                         div#book-action-buttons
-                            a(href = "/product-details/"+ products.id )
+                            a(href = "/product-details/"+ product.id )
                                 button#product-detials Detials
-                            button#read-button Read Now
+                            form#form-cont(action= '/cart', method = 'post' )
+                                button#read-button(type = "submit") Add to cart
+                                input(type="hidden", name = 'prodId', value = product.id)
                         
             else 
                 h1 No Products.

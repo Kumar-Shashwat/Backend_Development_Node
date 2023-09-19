@@ -4,10 +4,14 @@ const path = require('path');
 
 const shopController = require('../controller/shop');
 
+router.get('/shop/index', shopController.index);
 router.get('/product-list', shopController.shopGallery);
-router.get('/cart', shopController.cart);
+router.get('/cart', shopController.getCart);
+router.post('/cart', shopController.postCart);
 router.get('/cheakout', shopController.cheakout );
-router.get('/product-details', shopController.productDetials);
+// router.get('/product/delete', );
+router.get('/product-details/:prodId', shopController.productDetials);
+router.get('/', shopController.index);
 
-
+ 
 module.exports = router;

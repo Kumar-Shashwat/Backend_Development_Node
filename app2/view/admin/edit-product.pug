@@ -1,2 +1,37 @@
 extend ../layout/admin-layout.pug
 
+block style 
+    link(rel="stylesheet", href="/style/add-product.css")
+
+block content 
+     main
+            form.product-form( action="/admin/add-product" method="POST")
+                div.form-control
+                    label( for="title") Enter Title
+                    input#title(type="text" name="title" value = (editing? product.title :'Dunes' ) )
+
+                div.form-control
+                    label( for="price") Price 
+                    input#price(type="text" name="price"  value= (editing? product.price :'150' ) )
+
+                div.form-control
+                    label( for="imageUrl") Image URL
+                    input#imageUrl(type="text" name="imageUrl", value = (editing? product.imageUrl :"data:image/jpeg;base64,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") )
+
+                div.form-control
+                    label( for="author") Author
+                    input#author(type="text" name="author" value = (editing? product.author :'shashwat' ) ) 
+
+                div.form-control
+                    label( for="description") Description
+                    if editing 
+                        textarea#description(type="text" name="description" rows="5" ) #{product.description}
+                    else 
+                        textarea#description(type="text" name="description" rows="5" ) A Great book to understand the things.
+
+                    //- button(type="submit") Add Product 
+                    if editing=== true 
+                        button(type="submit") Update Product
+                    else 
+                        button(type="submit") Add Product 
+

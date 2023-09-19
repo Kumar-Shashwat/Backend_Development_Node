@@ -2,17 +2,33 @@ const products = [];
 
 module.exports = class Product{
 
-    constructor(t){
-        this.title = t;
+    constructor(title, price, imageUrl, author , description){
+        this.title = title;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.author = author;
+        this.description = description;
     }
 
     save() {
+        this.id = Math.random().toString();
         products.push(this);
     }
 
     static fetchAll(){
         return products;
     }
+
+    static findById(id){
+        for(let x of products){
+            if(x.id ===  id)
+            {
+                return x;
+            }
+        }
+    }
+
+    
 };
 
 // const fs = require('fs');

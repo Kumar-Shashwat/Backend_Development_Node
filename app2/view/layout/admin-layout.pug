@@ -12,14 +12,24 @@ html(lang="en")
         header.main-header
             nav.main-header__nav
                 ul.main-header__item-list
+
                     li.main-header__item
-                        a(href="/product-list" class = (path === 'shop/product-list' ? 'active' : '')) product-list
+                        a(href="/shop/index" class = (path === 'shop/index' ? 'active' : '')) Shop
+
+                    li.main-header__item
+                        a(href="/product-list" class = (path === '/shop/product-list' ? 'active' : '')) product-list
                     
                     li.main-header__item
-                        a(href="/admin/add-product" class = (path === 'admin/add-product'? 'active' : '')) Add product 
+                        a(href="/admin/edit-product" class = (path === 'admin/add-product'? 'active' : '')) Add product 
                     
                     li.main-header__item
-                        a(href="/admin/edit-product" class = (path === 'admin/edit-product'? 'active' : '')) edit-product  
+                        a(href="/cart" class = (path === 'shop/cart'? 'active' : '')) Cart  
+                    
+                    li.main-header__item
+                        a(href="/cheakout" class = (path === 'shop/cheakout'? 'active' : '')) cheakout  
+                    
+                    li.main-header__item
+                        a(href="/admin/products" class = (path === 'admin/products'? 'active' : '')) Admin products  
             
 
         block content

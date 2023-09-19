@@ -15,6 +15,10 @@ router.post('/add-product',productsController.postAddProduct);
 router.get('/edit-product/',  productsController.getAddProducts)
 // /admin/edit-phone => get request.
 router.get('/edit-product/:productId', productsController.editProduct );
+router.post('/edit-product/:productId', productsController.postEditProduct);
+
+// /admin/delete ==> post request
+router.post('/delete/:productId', productsController.postDelete);
 
 // /admin/add-phone => get request.
 router.get('/products' , productsController.adminProducts);

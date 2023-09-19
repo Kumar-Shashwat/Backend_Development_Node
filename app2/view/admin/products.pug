@@ -17,9 +17,9 @@ block content
                         p#book-summary #{product.description}
                         
                         div#book-action-buttons
-                            a(href = "/admin/edit-product/"+ product.id )
+                            a(href = "/admin/edit-product/"+ product.id + "?edit=true" )
                                 button#product-detials Edit
-                            form#form-cont(action= '/cart', method = 'post' )
+                            form#form-cont(action= '/admin/delete/' + product.id , method = 'post' )
                                 button#read-button(type = "submit") Delete Product
                                 input(type="hidden", name = 'prodId', value = product.id)
                         

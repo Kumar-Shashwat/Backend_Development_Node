@@ -35,7 +35,6 @@ exports.postCart = (req, res, next) =>{
     console.log(product.id, product.title, product.price, product.author);
 
     Cart.addProduct(product.id, product.price);
-77
     res.redirect('/cart' );
 };
 
@@ -58,7 +57,7 @@ exports.productDetials = (req, res, next) => {
     }
 
     // console.log(product);
-    res.render('shop/product-details', {title : product.title ,product : product, path : 'shop/product-details'});
+    res.render('shop/product-details', {title :'Details of '+ product.title ,product : product, path : 'shop/product-details'});
 };
 
 exports.index = (req, res, next) => {

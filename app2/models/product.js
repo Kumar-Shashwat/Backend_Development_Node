@@ -28,7 +28,15 @@ module.exports = class Product{
         }
     }
 
-    
+    static deleteById(id){
+        for(let i =0; i< products.length; i++){
+            if(products[i].id ===  id)
+            {
+                products.splice(i,1);
+                break;
+            }
+        }
+    }
 };
 
 // const fs = require('fs');

@@ -21,22 +21,60 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 
+exports.postEditProduct = (req, res, next) =>{
+    console.log("your are in the post edit-product");
+    
+    const productId = req.params.productId;
+    // find product by id.
+
+    const products = Product.fetchAll();
+    for(let x of products){
+        if(x.id === productId)
+        {
+            x.title = req.body.title;
+            x.price = req.body.price;
+            x.imageUrl = req.body.imageUrl;
+            x.author = req.body.author;
+            x.description = req.body.description;
+        }
+    }
+
+    res.redirect('/product-list');
+
+}
+
+
 
 exports.editProduct = (req, res, next) => {
 
     const productId = req.params.productId;
+    const editMode = req.query.edit;
+
+    if(editMode === false)
+        res.redirect('/');
 
     const product = Product.findById(productId);
 
     // console.log(product);
 
     res.render('admin/edit-product', {
-        title :  'updating' + product.title, 
+        title :  'updating ' + product.title, 
         path : 'admin/edit-product',
-        product: product,
-        editing : true
+        product: product, 
+        editing : editMode
     });
     
+}
+
+exports.postDelete = (req, res, next) => {
+
+    
+    const productId = req.params.productId;
+    const product = Product.findById(productId);
+
+    Product.deleteById(productId);
+
+    res.redirect('/admin/products'); // redirected to produts page of admin.
 }
 
 exports.adminProducts = (req, res, next) => {

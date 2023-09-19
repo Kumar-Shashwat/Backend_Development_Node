@@ -5,7 +5,7 @@ block style
 
 block content 
      main
-            form.product-form( action="/admin/add-product" method="POST")
+            form.product-form( action="/admin/"+(editing? 'edit-product/'+ product.id : 'add-product') method="POST")
                 div.form-control
                     label( for="title") Enter Title
                     input#title(type="text" name="title" value = (editing? product.title :'Dunes' ) )
@@ -30,7 +30,7 @@ block content
                         textarea#description(type="text" name="description" rows="5" ) A Great book to understand the things.
 
                     //- button(type="submit") Add Product 
-                    if editing=== true 
+                    if editing
                         button(type="submit") Update Product
                     else 
                         button(type="submit") Add Product 

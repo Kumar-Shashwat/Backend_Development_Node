@@ -1,42 +1,83 @@
 const Product = require('../models/product');
-const Cart = require('../models/cart');
 
 exports.index = (req, res, next) => {
-    res.render('shop/index', {title : 'shop', prod : Product.fetchAll(), path : 'shop/index' });
+    Product.fetchAll().then(([rows, fieldData]) => {
+        res.render('shop/index', {
+            title : 'shop',
+            prod : rows, 
+            path : 'shop/index'
+         });
+    }).catch(err => {
+        console.log(err);
+    });
 }
 
 exports.shopGallery = (req, res , next) => {
     // console.log("In the last middleware!");
     // res.sendFile(path.join(__dirname, '../', 'view', 'shop.html'));
-    res.render('shop/product-list', {prod : Product.fetchAll(), title : 'product-list', path : '/shop/product-list'});
+
+    Product.fetchAll().then(([rows, fieldData]) => {
+        res.render('shop/product-list', {
+            prod : rows,
+            title : 'product-list',
+            path : '/shop/product-list'
+        });
+    }).catch(err => console.log(err) );
+
+
+    
     // console.log(Product.fetchAll());
 };
 
 exports.getCart = (req, res, next) => {
-    res.render('shop/cart', {title : 'cart', path : 'shop/cart'});
+
+
+    Product.fetchCart().then( ([rows, fieldData]) => {
+        res.render('shop/cart', {
+            title : 'cart',
+            prod : rows,
+            path : 'shop/cart'});
+    }).catch(err => console.log(err));
+    
 };
 
 exports.postCart = (req, res, next) =>{
     const prodId = req.body.prodId;
     // console.log(prodId);
 
-    let products = Product.fetchAll() ;
+    Product.addToCart(prodId);
 
-    let product;
-    for(let x of products){
-        if(x.id === prodId)
-        {
-            product = x;
-            
-            break;
-        }
-    }
+    res.redirect('/product-list');
 
-    console.log(product.id, product.title, product.price, product.author);
-
-    Cart.addProduct(product.id, product.price);
-    res.redirect('/cart' );
+    // console.log(product.id, product.title, product.price, product.author);
+    
 };
+
+exports.removeItem = (req, res, next ) => {
+    const prodId = req.params.prodId;
+
+    Product.removeItem(prodId).then(() => {
+        res.redirect('/cart');
+    }).catch(err => console.log(err));
+};
+
+exports.decreaseCount = (req, res , next) => {
+
+    const prodId = req.params.prodId;
+
+    Product.decreaseCount(prodId).then(res.redirect('/cart')).catch(err => console.log(err));
+
+}
+
+exports.increaseCount = (req, res , next) => {
+
+    const prodId = req.params.prodId;
+
+    Product.increaseCount(prodId).then(res.redirect('/cart')).catch(err => console.log(err));
+
+}
+
+
 
 exports.cheakout = (req, res, next) => {
     res.render('shop/cheakout', {title : 'cheakout', path : 'shop/cheakout'});
@@ -45,21 +86,26 @@ exports.cheakout = (req, res, next) => {
 exports.productDetials = (req, res, next) => {
     const prodId = req.params.prodId;
     // console.log(prodId);
-    let products = Product.fetchAll() ;
 
-    let product;
-    for(let x of products){
-        if(x.id === prodId)
-        {
-            product = x;
-            break;
-        }
-    }
+    Product.findById(prodId).then( ([rows, fieldData]) => {
+        res.render('shop/product-details', {
+            title :'Details of '+ rows[0].title ,
+            product : rows[0], 
+            path : 'shop/product-details'
+        });
+    }).catch(err => console.log(err));
+
+    // let products = Product.fetchAll() ;
+
+    // let product;
+    // for(let x of products){
+    //     if(x.id === prodId)
+    //     {
+    //         product = x;
+    //         break;
+    //     }
+    // }
 
     // console.log(product);
-    res.render('shop/product-details', {title :'Details of '+ product.title ,product : product, path : 'shop/product-details'});
+    
 };
-
-exports.index = (req, res, next) => {
-    res.render('shop/product-list', {prod : Product.fetchAll(), title : 'Index Page', path : 'shop/index'});
-}

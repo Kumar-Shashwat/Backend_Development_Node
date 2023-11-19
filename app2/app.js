@@ -23,16 +23,25 @@ const path = require('path');
 
 const app = express();
 
-app.set('view engine', 'pug');
-app.set('views', 'view');
+app.set('view engine', 'pug');  // what to see
+app.set('views', 'view');       // where to see the pug files.
 
 const routerAdminData = require('./routes/admin.js');
 const routerShop = require('./routes/shop.js');
 const routerError = require('./routes/error.js');
+const db = require('./util/database.js');
 
 
 app.use(bodyParsher.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// db.execute('select * from products')
+// .then( result => {
+//     console.log(result);
+// })
+// .catch( err => {
+//     console.log(err);
+// });
 
 app.use('/admin', routerAdminData.router);
 app.use(routerShop);

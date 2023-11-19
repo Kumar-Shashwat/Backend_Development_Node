@@ -5,7 +5,6 @@ const path = require('path');
 const productsController = require('../controller/admin');
 
 
-
 // /admin/add-phone => get request.
 router.get('/add-product', productsController.getAddProducts);
 

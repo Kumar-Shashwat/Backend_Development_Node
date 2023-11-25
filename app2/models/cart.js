@@ -1,40 +1,41 @@
-const fs = require('fs');
-const path = require('path');
+const db = require('../util/database');
 
-const p = path.join(
-  path.dirname(process.mainModule.filename),
-  'data',
-  'cart.json'
-);
-
-module.exports = class Cart {
-    static addProduct(id, productPrice) {
-    // Fetch the previous cart
-        fs.readFile(p, (err, fileContent) => {
-            let cart = { products: [], totalPrice: 0 };
-            if (!err) {
-                cart = JSON.parse(fileContent);
-            }
-            // Analyze the cart => Find existing product
-            const existingProductIndex = cart.products.findIndex(
-                prod => prod.id === id
+module.exports = class Cart{
+        // some operatoins on cart table.
+        static fetchCart(user_id){
+            return db.execute('select p.*, c.count from (SELECT product_id, count FROM cart  where user_id = ?) c inner join products p on c.product_id = p.id;',
+                [user_id]
             );
-            const existingProduct = cart.products[existingProductIndex];
-            let updatedProduct;
-            // Add new product/ increase quantity
-            if (existingProduct) {
-                updatedProduct = { ...existingProduct };
-                updatedProduct.qty = updatedProduct.qty + 1;
-                cart.products = [...cart.products];
-                cart.products[existingProductIndex] = updatedProduct;
-            } else {
-                updatedProduct = { id: id, qty: 1 };
-                cart.products = [...cart.products, updatedProduct];
-            }
-            cart.totalPrice = cart.totalPrice + +productPrice;
-            fs.writeFile(p, JSON.stringify(cart), err => {
-                console.log(err);
-            });
-        });
-    }
-};
+        }
+    
+        static addToCart(prodId, user_id){
+    
+            db.execute('SELECT product_id FROM cart WHERE user_id = ?;',[user_id]).then( ([rows, fieldData]) => {
+                
+                let i ;
+                for( i = 0; i< rows.length; i++){
+    
+                    if(rows[i].product_id === parseInt(prodId))
+                    {   
+                        return db.execute('update cart set count = count + 1 where product_id = ? AND user_id = ?;',[prodId, user_id]);
+                    }
+                }
+                if(i === rows.length){
+                    return db.execute('INSERT INTO cart (product_id, user_id, count) VALUES  (?, ?, ?);', [prodId, user_id, 1]);
+                }
+            }).catch(err => console.log(err));
+        }
+    
+        static removeItem(prodId, user_id){
+    
+            return db.execute('DELETE FROM cart WHERE product_id = ? AND user_id = ?;', [prodId, user_id]);
+        }
+    
+        static decreaseCount(prodId, user_id){
+            return db.execute('UPDATE cart SET count = count - 1 WHERE product_id = ? AND user_id = ?;',[prodId, user_id]);
+        }
+    
+        static increaseCount(prodId,  user_id){
+            return db.execute('UPDATE cart SET count = count + 1 WHERE product_id = ? AND user_id = ?;',[prodId, user_id]);
+        }
+}

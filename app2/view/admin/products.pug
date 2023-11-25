@@ -3,7 +3,7 @@ extend ../layout/admin-layout.pug
 block style 
     link(rel="stylesheet", href="/style/shop.css")
 
-block content 
+block content
     div.book-gallery
             if prod.length > 0
                 each product in prod
@@ -17,11 +17,12 @@ block content
                         p#book-summary #{product.description}
                         
                         div#book-action-buttons
-                            a(href = "/admin/edit-product/"+ product.id + "?edit=true" )
+                            input(type="hidden" name="_csrf" value= csrfToken)
+                            a(href = "/admin/edit-product/"+ product.id + "?edit=true")
                                 button#product-detials Edit
                             form#form-cont(action= '/admin/delete/' + product.id , method = 'post' )
                                 button#read-button(type = "submit") Delete Product
                                 input(type="hidden", name = 'prodId', value = product.id)
-                        
-            else 
+                                input(type="hidden" name="_csrf" value= csrfToken)
+            else
                 h1 No Products. 

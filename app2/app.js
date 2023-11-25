@@ -2,49 +2,54 @@
 const express = require('express');
 const bodyParsher = require('body-parser');
 const path = require('path');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+const csrf = require('csurf');
+const flash = require('connect-flash');
 
-// const own_fun = (req, res) => {
+const db = require('./util/database.js');
 
-//     console.log(req);
-//     res.write('<html>'),
-//     res.write('<title>'),
-//     res.write('app2'),
-//     res.write('</title>'),
-//     res.write('<body>'),
-//     res.write('Kumar Shashwat is developing app2.'),
-//     res.write('</body>'),
-    
-//     res.write('</html>')
-//     res.end();
-// };
-// const server = http.createServer(own_fun);
+const sessionStore = new MySQLStore({}/* session store options */, db);
 
 
 
 const app = express();
+
+const csrfProtection = csrf();
 
 app.set('view engine', 'pug');  // what to see
 app.set('views', 'view');       // where to see the pug files.
 
 const routerAdminData = require('./routes/admin.js');
 const routerShop = require('./routes/shop.js');
+const routerLogin = require('./routes/auth.js');
 const routerError = require('./routes/error.js');
-const db = require('./util/database.js');
+const routerCart = require('./routes/cart.js');
 
 
 app.use(bodyParsher.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    session({
+      secret: 'my secret',
+      resave: false,
+      saveUninitialized: false,
+      store: sessionStore,
+    })
+  );
+app.use(csrfProtection);
+app.use( (req, res, next ) => {             // in all the view we are rendering these two values will be automatically passed.
+  res.locals.autharized = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+})
+app.use(flash());
 
-// db.execute('select * from products')
-// .then( result => {
-//     console.log(result);
-// })
-// .catch( err => {
-//     console.log(err);
-// });
 
 app.use('/admin', routerAdminData.router);
 app.use(routerShop);
+app.use(routerLogin);
+app.use(routerCart);
 app.use(routerError);
 
 // const server = http.createServer(app);

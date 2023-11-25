@@ -2,9 +2,11 @@ const Product = require('../models/product');
 
 exports.getAddProducts = (req, res, next) => {
     res.render('admin/edit-product', {
-        title : 'edit-product',
-        path : 'admin/edit-product',
-        editing : false
+            title : 'edit-product',
+            path : 'admin/edit-product',
+            editing : false,
+            // autharized : req.session.isLoggedIn,
+            // csrfToken: req.csrfToken(),
         });
 };
 
@@ -22,36 +24,6 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 
-exports.postEditProduct = (req, res, next) =>{
-    console.log("your are in the post edit-product");
-    
-    const productId = req.params.productId;
-    // find product by id.
-
-    Product.updateAll(productId, req.body.title, req.body.price, req.body.imageUrl, req.body.author, req.body.description)
-    .then(
-        res.redirect('/admin/products') // redirected to produts page of admin.
-    ).catch(err => console.log(err));
-
-
-    // const products = Product.fetchAll();
-    // for(let x of products){
-    //     if(x.id === productId)
-    //     {
-    //         x.title = req.body.title;
-    //         x.price = req.body.price;
-    //         x.imageUrl = req.body.imageUrl;
-    //         x.author = req.body.author;
-    //         x.description = req.body.description;
-    //     }
-    // }
-
-    
-
-}
-
-
-
 exports.editProduct = (req, res, next) => {
 
     const productId = req.params.productId;
@@ -65,7 +37,9 @@ exports.editProduct = (req, res, next) => {
             title :  'updating ' + rows[0].title,
             path : 'admin/edit-product',
             product: rows[0], 
-            editing : editMode
+            editing : editMode,
+            // autharized : req.session.isLoggedIn,
+            // csrfToken: req.csrfToken(),
         });
     }).catch(err => console.log(err));
 
@@ -73,6 +47,19 @@ exports.editProduct = (req, res, next) => {
 
        
 }
+
+exports.postEditProduct = (req, res, next) =>{
+    // console.log("your are in the post edit-product");
+    
+    const productId = req.params.productId;
+    // find product by id.
+
+    Product.updateAll(productId, req.body.title, req.body.price, req.body.imageUrl, req.body.author, req.body.description)
+    .then(
+        res.redirect('/admin/products') // redirected to produts page of admin.
+    ).catch(err => console.log(err));
+}
+
 
 exports.postDelete = (req, res, next) => {
 
@@ -92,7 +79,9 @@ exports.adminProducts = (req, res, next) => {
         res.render('admin/products', {
             title : 'admin-products' , 
             prod : rows, 
-            path : 'admin/products'
+            path : 'admin/products',
+            // autharized : req.session.isLoggedIn,
+            // csrfToken: req.csrfToken(),
         });
     }).catch(err => console.log(err));
     

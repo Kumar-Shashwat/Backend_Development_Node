@@ -32,6 +32,7 @@ block content
                             form#form-cont(action= '/remove-item/' + product.id, method = 'post' )
                                 button#read-button(type = "submit") Remove Item
                                 input(type="hidden", name = 'prodId', value = product.id)
+                                input(type="hidden" name="_csrf" value= csrfToken)
                         
             else 
                 h1 No Products.

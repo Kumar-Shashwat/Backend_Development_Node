@@ -6,11 +6,6 @@ const shopController = require('../controller/shop');
 
 router.get('/shop/index', shopController.index);
 router.get('/product-list', shopController.shopGallery);
-router.get('/cart', shopController.getCart);
-router.post('/cart', shopController.postCart);
-router.get('/cart-decrease-count/:prodId', shopController.decreaseCount);
-router.get('/cart-increase-count/:prodId', shopController.increaseCount);
-router.post('/remove-item/:prodId', shopController.removeItem);
 router.get('/cheakout', shopController.cheakout );
 // router.get('/product/delete', );
 router.get('/product-details/:prodId', shopController.productDetials);

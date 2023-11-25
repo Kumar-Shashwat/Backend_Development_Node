@@ -1,4 +1,3 @@
-const products = [];
 
 const db = require('../util/database');
 
@@ -60,39 +59,7 @@ module.exports = class Product{
         )
     };
 
-    static fetchCart(){
-        return db.execute('SELECT p.*, c.count FROM products p INNER JOIN cart c ON p.id = c.product_id; ');
-    }
 
-    static addToCart(prodId){
 
-        db.execute('SELECT product_id FROM cart;').then( ([rows, fieldData]) => {
-            
-            let i ;
-            for( i = 0; i< rows.length; i++){
-
-                if(rows[i].product_id === parseInt(prodId))
-                {   
-                    return db.execute('update cart set count = count + 1 where product_id = ?;',[prodId]);
-                }
-            }
-            if(i === rows.length){
-                return db.execute('INSERT INTO cart (product_id, count) VALUES  (?,?);', [prodId, 1]);
-            }
-        }).catch(err => console.log(err));
-    }
-
-    static removeItem(prodId){
-
-        return db.execute('DELETE FROM cart WHERE product_id = ?;', [prodId]);
-    }
-
-    static decreaseCount(prodId){
-        return db.execute('UPDATE cart SET count = count - 1 WHERE product_id = ?;',[prodId]);
-    }
-
-    static increaseCount(prodId){
-        return db.execute('UPDATE cart SET count = count + 1 WHERE product_id = ?;',[prodId]);
-    }
 
 };

@@ -32,6 +32,8 @@ block content
                     //- button(type="submit") Add Product 
                     if editing
                         button(type="submit") Update Product
+                        input(type="hidden" name="_csrf" value= csrfToken)
                     else 
-                        button(type="submit") Add Product 
+                        button(type="submit") Add Product
+                        input(type="hidden" name="_csrf" value= csrfToken) 
 

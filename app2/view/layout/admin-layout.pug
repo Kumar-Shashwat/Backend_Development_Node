@@ -19,17 +19,29 @@ html(lang="en")
                     li.main-header__item
                         a(href="/product-list" class = (path === '/shop/product-list' ? 'active' : '')) product-list
                     
-                    li.main-header__item
-                        a(href="/admin/edit-product" class = (path === 'admin/edit-product'? 'active' : '')) Add product 
-                    
-                    li.main-header__item
-                        a(href="/cart" class = (path === 'shop/cart'? 'active' : '')) Cart  
-                    
-                    li.main-header__item
-                        a(href="/cheakout" class = (path === 'shop/cheakout'? 'active' : '')) cheakout  
-                    
-                    li.main-header__item
-                        a(href="/admin/products" class = (path === 'admin/products'? 'active' : '')) Admin products  
-            
+                    if(autharized == true)
+                        li.main-header__item
+                            a(href="/admin/edit-product" class = (path === 'admin/edit-product'? 'active' : '')) Add product 
+                        
+                        li.main-header__item
+                            a(href="/cart" class = (path === 'shop/cart'? 'active' : '')) Cart  
+                        
+                        li.main-header__item
+                            a(href="/cheakout" class = (path === 'shop/cheakout'? 'active' : '')) cheakout
 
+                    
+                        li.main-header__item
+                            a(href="/admin/products" class = (path === 'admin/products'? 'active' : '')) Admin products 
+
+                ul.main-header__item-list
+                    if(!autharized)
+                        ul.main-header__item
+                            a(href="/login" class = (path === '/login'? 'active' : '')) login
+                        ul.main-header__item
+                            a(href="/signup" class = (path === '/signup'? 'active' : '')) signup
+                    else
+                        ul.main-header__item
+                            input(type="hidden", name = "_csrf", value = csrfToken)
+                            a(href="/logout" class = (path === '/logout'? 'active' : '')) logout
+            
         block content

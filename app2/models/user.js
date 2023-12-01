@@ -24,5 +24,8 @@ module.exports = class User{
         return db.execute('SELECT * FROM user where email = ?;',[email]);
     }
 
+    static updateDetails( {id, name, email, password  }){
+        return db.execute('UPDATE  user SET password = ? WHERE email = ?',[password, email]);
+    }
     
 };

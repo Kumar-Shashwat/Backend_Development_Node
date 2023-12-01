@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const errorController = require('../controller/error');
 
-router.use((req, res, next) => {
-    res.status(404);
-    // res.sendFile(path.join(__dirname, '../', 'view', 'error.html'));
-    res.render('error', {title: 'Error 404'});
-} );
+// router.use ();
+router.get('/500', errorController.error500)
+router.use(errorController.error404);
 
-module.exports = router;
+// router.get('/500', (req, res, next))
+
+module.exports = router;     

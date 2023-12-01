@@ -4,7 +4,7 @@ const path = require('path');
 
 const shopController = require('../controller/shop');
 
-router.get('/shop/index', shopController.index);
+// router.get('/shop/index', shopController.index);
 router.get('/product-list', shopController.shopGallery);
 router.get('/cheakout', shopController.cheakout );
 // router.get('/product/delete', );

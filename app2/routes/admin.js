@@ -18,7 +18,8 @@ router.get('/edit-product/:productId' , isAuth, productsController.editProduct )
 router.post('/edit-product/:productId', isAuth, productsController.postEditProduct);
 
 // /admin/delete ==> post request
-router.post('/delete/:productId', isAuth, productsController.postDelete);
+// router.delete('/delete/:productId', isAuth, productsController.postDelete);
+router.delete('/product/:productId', isAuth, productsController.deleteProduct);
 
 // /admin/add-phone => get request.
 router.get('/products' , isAuth, productsController.adminProducts);

@@ -20,11 +20,27 @@ block content
                             a(href = "/product-details/"+ product.id )
                                 button#product-detials Detials
                             
-                            if(autharized)
-                                form#form-cont(action= '/cart', method = 'post' )
-                                    button#read-button(type = "submit") Add to cart
-                                    input(type="hidden", name = 'prodId', value = product.id)
-                                    input(type="hidden" name="_csrf" value= csrfToken)
+                            
+                            form#form-cont(action= '/cart', method = 'post' )
+                                button#read-button(type = "submit") Add to cart
+                                input(type="hidden", name = 'prodId', value = product.id)
+                                input(type="hidden" name="_csrf" value= csrfToken)
                         
             else 
                 h1 No Products.
+    
+    section.pagination
+
+        if(currPage !== 1 & previousPage !== 1)
+            a.page(href = '?page=1') 1
+
+        if(hasPreviousPage)
+            a.page(href = '?page=' + previousPage) #{previousPage}
+
+        a.page.active(href = '?page=' + currPage) #{currPage}
+
+        if(hasNextpage)
+            a.page(href = `?page=`+ nextPage) #{nextPage}
+
+        if(currPage !== lastPage && nextPage !== lastPage && lastPage !== 0)
+            a.page(href = '?page=' + lastPage) #{lastPage}

@@ -79,10 +79,4 @@ module.exports = class Product{
     static countProductsByEmail (email){
         return db.execute('select count(*) as count from products where createrEmail = ? ;', [email]);
     }
-
-
-
-
-
-
 };

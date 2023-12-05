@@ -90,5 +90,7 @@ app.use((error , req, res, next) => {
 // server.listen(60000);    // no need to create server and listening.
 
 // express had a method listen which auto matically create a server and listening to the given port.
-// console.log(Date.now())        
-app.listen(3000);      
+// console.log(Date.now())   
+
+const port = process.env.PORT ;
+app.listen(port);      

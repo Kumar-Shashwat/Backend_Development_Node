@@ -9,11 +9,11 @@ const { error } = require('console');
 
 // "Brevo" is the third party mailSender application used.
 const transporter = nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
-    port: 587,
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     auth: {
-        user: 'kumarshashwat20@gmail.com',
-        pass: 'xsmtpsib-fa4f85a6259030401622902f78efc911f2978f0cb01fa5ec47212d417e4d8b05-9pHYV4DdyWBLKcN0'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
     }
 });
 

@@ -4,15 +4,33 @@ exports.getCart = (req, res, next) => {
 
     const user_id = req.session.user.id; // some how we get the id of user. may be by sql command.
 
-    Cart.fetchCart(user_id).then( ([rows, fieldData]) => {
+    let totalAmount = 0;
+    Cart.cartAmount(user_id)
+    .then( ([rows, fieldData]) => { // it fethes the total amount of products present in the cart of particular user.
+         
+        totalAmount = rows[0].user_cart_amount;
+
+        return Cart.fetchCart(user_id);     // fetches all product present in the cart of paricular user.
+
+    })
+    .then(([rows, fieldData]) => {
+
         res.render('shop/cart', {
             title : 'cart',
             prod : rows,
             path : 'shop/cart',
+            totalAmount : totalAmount,
             // autharized : req.session.isLoggedIn,
             // csrfToken: req.csrfToken(),
         });
-    }).catch(err => console.log(err));
+        
+    })
+    .catch(err =>  {                    // if any of the then block trows an error then catch block will be executed.
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
+        
 };
 
 exports.postCart = (req, res, next) =>{
@@ -57,3 +75,35 @@ exports.increaseCount = (req, res , next) => {
 
     Cart.increaseCount(prodId, user_id).then(res.redirect('/cart')).catch(err => console.log(err));
 }
+
+exports.cheakout = (req, res, next) => {
+
+    const user_id = req.session.user.id; // some how we get the id of user. may be by sql command.
+
+    let totalAmount = 0;
+    Cart.cartAmount(user_id)
+    .then( ([rows, fieldData]) => { // it fethes the total amount of products present in the cart of particular user.
+         
+        totalAmount = rows[0].user_cart_amount;
+
+        return Cart.fetchCart(user_id);     // fetches all product present in the cart of paricular user.
+
+    })
+    .then(([rows, fieldData]) => {
+
+        res.render('shop/cheakout', {
+            title : 'cheakout',
+            prod : rows,
+            path : 'shop/cheakout',
+            totalAmount : totalAmount,
+            // autharized : req.session.isLoggedIn,
+            // csrfToken: req.csrfToken(),
+        });
+        
+    })
+    .catch(err =>  {                    // if any of the then block trows an error then catch block will be executed.
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
+};

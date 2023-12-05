@@ -5,6 +5,7 @@
     flex-direction: row;
     display: flex;
     margin:  0.5rem 0;
+    
 }
 
 .minus,
@@ -22,6 +23,8 @@
     border : 1px solid rgb(58, 58, 58);
     margin: 0 0.5rem;
     align-items: center;
+    text-align: center;
+    display: grid;
 }
 
 .minus,

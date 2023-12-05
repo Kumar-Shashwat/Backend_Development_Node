@@ -6,7 +6,7 @@ const shopController = require('../controller/shop');
 
 // router.get('/shop/index', shopController.index);
 router.get('/product-list', shopController.shopGallery);
-router.get('/cheakout', shopController.cheakout );
+
 // router.get('/product/delete', );
 router.get('/product-details/:prodId', shopController.productDetials);
 router.get('/', shopController.index);

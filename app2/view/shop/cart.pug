@@ -3,6 +3,7 @@ extend ../layout/shop-layout.pug
 block style 
     link(rel="stylesheet", href="/style/shop.css")
     link(rel="stylesheet", href="/style/itemCounter.css")
+    link(rel="stylesheet", href="/style/cart.css")
 
 block content 
 
@@ -36,4 +37,10 @@ block content
                         
             else 
                 h1 No Products.
+    
+    div.bottom
+        div.order-now-bottom 
+            a(href = "/cheakout")
+                button#product-detials Cheak out:
+                    em ₹ #{totalAmount}
         

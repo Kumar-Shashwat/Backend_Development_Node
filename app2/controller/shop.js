@@ -74,7 +74,7 @@ exports.shopGallery = (req, res , next) => {
         res.render('shop/product-list', {
             title : 'shop',
             prod : rows, 
-            path : 'shop/index',
+            path : '/shop/product-list',
 
             // about eror and sucess message.
             errorMessage : null,
@@ -103,11 +103,6 @@ exports.shopGallery = (req, res , next) => {
     // console.log(Product.fetchAll());
 };
 
-
-
-exports.cheakout = (req, res, next) => {
-    res.render('shop/cheakout', {title : 'cheakout', path : 'shop/cheakout'});
-};
 
 exports.productDetials = (req, res, next) => {
     const prodId = req.params.prodId;

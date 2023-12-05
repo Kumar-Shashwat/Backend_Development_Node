@@ -38,4 +38,11 @@ module.exports = class Cart{
         static increaseCount(prodId,  user_id){
             return db.execute('UPDATE cart SET count = count + 1 WHERE product_id = ? AND user_id = ?;',[prodId, user_id]);
         }
+
+        static cartAmount (user_id){
+            return db.execute(`with final as (
+                select  cart.*, products.createrEmail, cart.count*products.price  amount  from cart join products on cart.product_id = products.id where cart.user_id = ?
+                
+                ) select   sum(amount) user_cart_amount,  final.createrEmail, final.user_id from final;`, [user_id]);
+        }
 }
